@@ -42,24 +42,18 @@ def get_playlist_videos(playlist_id: str) -> list[str]:
     return videos
 
 
+def format_playlist_id(playlist_id: str) -> str:
+    playlist_id = playlist_id.strip()
+
+    if playlist_id.startswith(("https://www.youtube.com/", "http://www.youtube.com/")):
+        playlist_id = playlist_id.split("list=")[-1]
+        playlist_id = playlist_id.split("&")[0]
+
+    return playlist_id
+
+
 if __name__ == "__main__":
-    # Function to format the playlist ID
-    def format_playlist_id(playlist_id: str) -> str:
-        # Remove any leading/trailing whitespace
-        playlist_id = playlist_id.strip()
-
-        # If the ID is a full URL, extract just the ID part
-        if playlist_id.startswith(
-            ("https://www.youtube.com/", "http://www.youtube.com/")
-        ):
-            playlist_id = playlist_id.split("list=")[-1]
-            playlist_id = playlist_id.split("&")[0]  # Remove any additional parameters
-
-        return playlist_id
-
-    playlist_link: str = (
-        str(input("Enter playlist Link: ")) or "PLtVdS8z6F1MkY-pffA-gVYwaCQzVREj8G"
-    )
+    playlist_link: str = input("Enter playlist Link: ") or "PL2788304DC59DBEB4"
     playlist_id = format_playlist_id(playlist_link)
     print("Your playlist's ID:", playlist_id)
 
@@ -67,12 +61,11 @@ if __name__ == "__main__":
 
     print("Videos in playlist:", len(set(videos)))
 
-    # Write links to CSV file
     output_file = Path(f"playlist_{playlist_id}.csv")
 
     with output_file.open("w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(["Video URL"])  # Write header
+        writer.writerow(["Video URL"])
         for video in videos:
             writer.writerow([video])
 

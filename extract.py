@@ -1,9 +1,10 @@
 import csv
 import os
-from googleapiclient.discovery import build
-from dotenv import load_dotenv
-from isodate import parse_duration
 from datetime import datetime
+
+from dotenv import load_dotenv
+from googleapiclient.discovery import build
+from isodate import parse_duration
 
 load_dotenv()
 
@@ -61,7 +62,7 @@ def process_csv(input_file, output_file):
         for row in reader:
             video_url = row[0]
             video_id = video_url.split("v=")[1]
-            title, views, duration, published_date, description, channel_name = (
+            title, views, duration, published_date, channel_name, description = (
                 extract_video_info(video_id)
             )
             if title:
@@ -72,13 +73,16 @@ def process_csv(input_file, output_file):
                         views,
                         duration,
                         published_date,
-                        description,
                         channel_name,
+                        description,
                     ]
                 )
 
 
-# Usage
-input_csv = "playlist_PLtVdS8z6F1MkY-pffA-gVYwaCQzVREj8G.csv"
-output_csv = "info_" + input_csv
-process_csv(input_csv, output_csv)
+if __name__ == "__main__":
+    input_csv = (
+        input("Enter a file that contains playlist links: ")
+        or "playlist_PL2788304DC59DBEB4.csv"
+    )
+    output_csv = "info_" + input_csv
+    process_csv(input_csv, output_csv)
