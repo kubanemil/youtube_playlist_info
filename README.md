@@ -32,15 +32,12 @@ Before running this project, you need to set up the following:
 
 ## Usage
 
-Run the `retrieve.py` script and follow the prompts to enter a YouTube playlist URL or ID.
-
-The script will extract video links from the playlist and save it to a CSV file with a name 
+1. Run the `retrieve.py` script and follow the prompts to enter a YouTube playlist URL or ID.
+The script will retrieve video links from the playlist and save it to a CSV file with a name 
 `playlist_{PLAYLIST_ID}.csv`.
 
-`extract.py` script will extract Title, Views and Duration from the video links and save it
-into `video_info.csv`.
-
-The script will extract video links from the playlist and save it to a CSV file.
+2. Run the `extract.py` script to extract data from the links and save it
+into `info_playlist_{PLAYLIST_ID}.csv`.
 
 ## Note
 
